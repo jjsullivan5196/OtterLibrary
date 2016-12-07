@@ -13,4 +13,8 @@
     <string name="text_username">Username</string>
     <string name="text_password">Password</string>
     <string name="button_register">Register</string>
+    <string name="toast_account_success">Account Created: </string>
+    <string name="toast_account_failure">Failed to create new Account:</string>
+    <string name="toast_db_success">Database Updated!</string>
+    <string name="toast_db_failure">Account already exists:</string>
 </resources>
