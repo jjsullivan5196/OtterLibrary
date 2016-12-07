@@ -1,0 +1,16 @@
+<resources>
+    <!--App Resources-->
+    <string name="app_name">OtterLibrary</string>
+    <string name="title_create_account">Create Account</string>
+
+    <!--Main Menu-->
+    <string name="button_create_account">Create Account</string>
+    <string name="button_place_hold">Place Hold</string>
+    <string name="button_cancel_hold">Cancel Hold</string>
+    <string name="button_manage_system">Manage System</string>
+
+    <!--Create Account-->
+    <string name="text_username">Username</string>
+    <string name="text_password">Password</string>
+    <string name="button_register">Register</string>
+</resources>
