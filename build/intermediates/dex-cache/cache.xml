@@ -3,21 +3,156 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\John Sullivan\Documents\OtterLibrary\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="6abe8316bb3f3a7c5495d808b242a518c3dddc1f">
-        <dex dex="C:\Users\John Sullivan\Documents\OtterLibrary\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6ed7616a458aca2cbb48a8ab2ca7189905401b2a\classes.dex" />
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_98d4d79c5cb0536386b7eba526490eb89eacee76/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\John Sullivan\Documents\OtterLibrary\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="4eedbcded42ae2c1da97b772657d69d0a04cae39">
-        <dex dex="C:\Users\John Sullivan\Documents\OtterLibrary\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_1c83dfe444441d92fa3de5daf1915bf7eba3e035\classes.dex" />
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_47a1a28aa5069213f5bb9f79501e7cf5eaa767fc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5caf8e74bf0d8aeabece29feb145e05be93e2379">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8b633a1254fb383fc142738b0eaff9bbdea83101/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_7aef7314ef4271fd96628e32518b271429c955fe/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_81ba91a2485df6e6e90a46aadc181223f9262223/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_6b03e9201c5f4b0e6366118779b56f3b019dea33/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_caedf86c0259c770bb68f619d3615abbe8504b09/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4993929dd6308707113a9fff6c57d17127da7208">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c503697cbcd791642625784a4c15242ff93959b0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_678236098dc9c2ed90c349578a6b9098f0a31e84/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_c50d139ef6c5e545872add21f9f0013b5db1bb3f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_3456fcc7f70899a7d172004cbbcb54173867f03f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_71f921811d794c0ee22702b560b50746fe07c363/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_6babec8e9795bb99547cdbfae8bc2d89ee579596/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_8f9fb10799c73dbe73a4bf25070a13c0b781671d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_2c36af602376600e6d308efd8fc05188e634a64c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_6e4b1d162c77813e977fa90d4a6884d7fda7c247/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/home/jsullivan/Documents/CST338/OtterLibrary/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_b5b8c15a297ae3d7777e37b57b9c0c2967edbc9e/classes.dex" />
     </item>
 
 </items>

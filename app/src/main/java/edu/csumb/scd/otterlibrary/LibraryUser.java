@@ -1,6 +1,9 @@
 package edu.csumb.scd.otterlibrary;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Created by jsullivan on 12/6/16.
@@ -47,6 +50,48 @@ public class LibraryUser {
 
         this.name = name;
         this.password = password;
+    }
+
+    public static LibraryUser getUserFromDb(String name, String password, SQLiteDatabase db) {
+        String[] userProjection = {
+                LibraryContract.UserEntry.COLUMN_NAME_USERNAME,
+                LibraryContract.UserEntry.COLUMN_NAME_PASSWORD,
+        };
+
+        String select = LibraryContract.UserEntry.COLUMN_NAME_USERNAME + " = ?";
+        String[] args = { name };
+
+        String sort = LibraryContract.UserEntry.COLUMN_NAME_USERNAME + " DESC";
+
+        Cursor c;
+        String dbName = "";
+        String dbPass = "";
+        try {
+            c = db.query(
+                    LibraryContract.UserEntry.TABLE_NAME,
+                    userProjection,
+                    select,
+                    args,
+                    null,
+                    null,
+                    sort
+            );
+
+            c.moveToFirst();
+            dbName = c.getString(c.getColumnIndex(LibraryContract.UserEntry.COLUMN_NAME_USERNAME));
+            dbPass = c.getString(c.getColumnIndex(LibraryContract.UserEntry.COLUMN_NAME_PASSWORD));
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("User not found");
+        }
+
+        if(name.equals(dbName) && password.equals(dbPass)) {
+            return new LibraryUser(name, password);
+        }
+        else {
+            throw new RuntimeException("Incorrect Password");
+        }
     }
 
     public ContentValues prepareUser() {

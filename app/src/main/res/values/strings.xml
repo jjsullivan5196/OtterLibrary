@@ -2,6 +2,7 @@
     <!--App Resources-->
     <string name="app_name">OtterLibrary</string>
     <string name="title_create_account">Create Account</string>
+    <string name="title_place_hold">Place Hold</string>
 
     <!--Main Menu-->
     <string name="button_create_account">Create Account</string>
@@ -9,7 +10,7 @@
     <string name="button_cancel_hold">Cancel Hold</string>
     <string name="button_manage_system">Manage System</string>
 
-    <!--Create Account-->
+    <!--Create Account/Login-->
     <string name="text_username">Username</string>
     <string name="text_password">Password</string>
     <string name="button_register">Register</string>
@@ -17,4 +18,21 @@
     <string name="toast_account_failure">Failed to create new Account:</string>
     <string name="toast_db_success">Database Updated!</string>
     <string name="toast_db_failure">Account already exists:</string>
+    <string name="login">Login</string>
+    <string name="login_success">Login Succeeded</string>
+
+    <!--Place Hold-->
+    <string name="pickup_date_hint">Pickup Date</string>
+    <string name="dropoff_date_hint">Dropoff Date</string>
+    <string name="pickup_hint">Set Pickup</string>
+    <string name="dropoff">Dropoff</string>
+    <string name="pickup">Pickup</string>
+    <string name="dropoff_hint">Set Dropoff</string>
+    <string name="pickup_time_hint">Pickup Time</string>
+    <string name="dropoff_time_hint">Dropoff Time</string>
+    <string name="reservation_submit">Submit</string>
+    <string name="error_invalid_date">Dropoff is before pickup</string>
+    <string name="error_res_too_long">Cannot hold book for more than 7 days</string>
+    <string name="hold_success">Hold Requested</string>
+    <string name="choose_time">Choose Time</string>
 </resources>

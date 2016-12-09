@@ -15,10 +15,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateAccount"
-            android:label="@string/title_create_account">
-
-        </activity>
+        <activity
+            android:name=".CreateAccount"
+            android:label="@string/title_create_account" />
+        <activity
+            android:name=".PlaceHold"
+            android:label="@string/title_place_hold" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/login" />
+        <activity android:name=".SelectBook"></activity>
     </application>
 
 </manifest>

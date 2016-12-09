@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.DateTimeFragment"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:text="@string/choose_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:id="@+id/datePicker"
+        android:layout_weight="4" />
+
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:timePickerMode="spinner"
+        android:id="@+id/timePicker"
+        android:layout_weight="4"
+        ></TimePicker>
+
+    <Button
+        android:text="@android:string/ok"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/bTimeOk"
+        android:layout_weight="1" />
+</LinearLayout>

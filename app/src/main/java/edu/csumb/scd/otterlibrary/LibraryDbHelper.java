@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LibraryDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "Library.db";
 
     public LibraryDbHelper(Context context) {
@@ -20,15 +20,25 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(LibraryContract.SQL_CREATE_ENTRIES);
         LibraryUser defaultUsers[] = new LibraryUser[4];
+        LibraryBook defaultBooks[] = new LibraryBook[3];
 
         defaultUsers[0] = new LibraryUser("!admin2", "!admin2");
         defaultUsers[1] = new LibraryUser("a@lice5", "@csit100");
         defaultUsers[2] = new LibraryUser("$brian7", "123abc##");
         defaultUsers[3] = new LibraryUser("!chris12!", "CHRIS12!!");
 
+        defaultBooks[0] = new LibraryBook("Hot Java", "S. Narayanan", "123-ABC-101", 0.05);
+        defaultBooks[1] = new LibraryBook("Fun Java", "Y. Byun", "ABCDEF-09", 1.00);
+        defaultBooks[2] = new LibraryBook("Algorithm for Java", "K. Alice", "CDE-777-123", 0.25);
+
         for(LibraryUser user : defaultUsers) {
             ContentValues prep = user.prepareUser();
             db.insert(LibraryContract.UserEntry.TABLE_NAME, null, prep);
+        }
+
+        for(LibraryBook book : defaultBooks) {
+            ContentValues prep = book.prepareBook();
+            db.insert(LibraryContract.BookEntry.TABLE_NAME, null, prep);
         }
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
