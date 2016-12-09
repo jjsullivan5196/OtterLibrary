@@ -41,6 +41,7 @@ public final class LibraryContract {
         public static final String COLUMN_NAME_TITLE = "title";
         public static final String COLUMN_NAME_PICKUP = "pickup";
         public static final String COLUMN_NAME_DROPOFF = "dropoff";
+        public static final String COLUMN_NAME_FEE = "fee";
 
         public static final String COLUMN_TYPE_ACCOUNT = "account";
         public static final String COLUMN_TYPE_HOLD = "hold";
@@ -49,21 +50,21 @@ public final class LibraryContract {
 
     public static final String TEXT_TYPE = " TEXT";
     public static final String COMMA_SEP = ",";
-    public static final String SQL_CREATE_ENTRIES =
+    public static final String[] SQL_CREATE_ENTRIES = {
             "CREATE TABLE " + UserEntry.TABLE_NAME + " (" +
                     UserEntry._ID + " INTEGER PRIMARY KEY," +
                     UserEntry.COLUMN_NAME_USERNAME + TEXT_TYPE + " NOT NULL UNIQUE" + COMMA_SEP +
-                    UserEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + " NOT NULL" + " ); " +
+                    UserEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + " NOT NULL" + " )",
             "CREATE TABLE " + BookEntry.TABLE_NAME + " (" +
                     BookEntry._ID + " INTEGER PRIMARY KEY," +
                     BookEntry.COLUMN_NAME_TITLE + TEXT_TYPE + " NOT NULL UNIQUE" + COMMA_SEP +
                     BookEntry.COLUMN_NAME_AUTHOR + TEXT_TYPE + " NOT NULL" + COMMA_SEP +
                     BookEntry.COLUMN_NAME_ISBN + TEXT_TYPE + " NOT NULL UNIQUE" + COMMA_SEP +
                     BookEntry.COLUMN_NAME_FEE + " REAL NOT NULL" + COMMA_SEP +
-                    BookEntry.COLUMN_NAME_HOLD + " INTEGER NOT NULL" +
+                    BookEntry.COLUMN_NAME_HOLD + " INTEGER NOT NULL" + COMMA_SEP +
                     BookEntry.COLUMN_NAME_HELD_BY + TEXT_TYPE + COMMA_SEP +
                     BookEntry.COLUMN_NAME_PICKUP + " INTEGER" + COMMA_SEP +
-                    BookEntry.COLUMN_NAME_DROPOFF + " INTEGER" + " ); " +
+                    BookEntry.COLUMN_NAME_DROPOFF + " INTEGER" + " )",
             "CREATE TABLE " + LogEntry.TABLE_NAME + " (" +
                     LogEntry._ID + " INTEGER PRIMARY KEY," +
                     LogEntry.COLUMN_NAME_TYPE + TEXT_TYPE + " NOT NULL" + COMMA_SEP +
@@ -71,10 +72,13 @@ public final class LibraryContract {
                     LogEntry.COLUMN_NAME_NAME + TEXT_TYPE + " NOT NULL" + COMMA_SEP +
                     LogEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     LogEntry.COLUMN_NAME_PICKUP + " INTEGER" + COMMA_SEP +
-                    LogEntry.COLUMN_NAME_DROPOFF + " INTEGER" + COMMA_SEP + " );";
+                    LogEntry.COLUMN_NAME_DROPOFF + " INTEGER" + COMMA_SEP +
+                    LogEntry.COLUMN_NAME_FEE + " REAL" + " )"
+    };
 
-    public static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME +
-            "DROP TABLE IF EXISTS " + BookEntry.TABLE_NAME +
-            "DROP TABLE IF EXISTS " + LogEntry.TABLE_NAME;
+    public static final String[] SQL_DELETE_ENTRIES = {
+            "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME,
+            "DROP TABLE IF EXISTS " + BookEntry.TABLE_NAME,
+            "DROP TABLE IF EXISTS " + LogEntry.TABLE_NAME
+    };
 }

@@ -11,14 +11,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LibraryDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Library.db";
 
     public LibraryDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(LibraryContract.SQL_CREATE_ENTRIES);
+        db.execSQL(LibraryContract.SQL_CREATE_ENTRIES[0]);
+        db.execSQL(LibraryContract.SQL_CREATE_ENTRIES[1]);
+        db.execSQL(LibraryContract.SQL_CREATE_ENTRIES[2]);
+
         LibraryUser defaultUsers[] = new LibraryUser[4];
         LibraryBook defaultBooks[] = new LibraryBook[3];
 
@@ -44,7 +47,9 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(LibraryContract.SQL_DELETE_ENTRIES);
+        db.execSQL(LibraryContract.SQL_DELETE_ENTRIES[0]);
+        db.execSQL(LibraryContract.SQL_DELETE_ENTRIES[1]);
+        db.execSQL(LibraryContract.SQL_DELETE_ENTRIES[2]);
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {

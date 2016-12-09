@@ -52,12 +52,14 @@ public class LoginActivity extends Activity {
         report.show();
 
         Class nextActivity = null;
+        String act = pass.getStringExtra(PASS_INTENT);
         try {
-            nextActivity = Class.forName(pass.getStringExtra(PASS_INTENT));
+            nextActivity = Class.forName(act);
         } catch (ClassNotFoundException e) {}
         pass.setClass(context, nextActivity);
         pass.putExtra(PASS_USER, name);
 
         startActivity(pass);
+        finish();
     }
 }

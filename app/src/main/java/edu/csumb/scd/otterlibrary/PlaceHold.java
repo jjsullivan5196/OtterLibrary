@@ -90,11 +90,11 @@ public class PlaceHold extends Activity implements DateTimeFragment.OnTimeSetLis
             return;
         }
 
-        Intent loginIntent = new Intent(this, LoginActivity.class);
-        loginIntent.putExtra(HOLD_PICKUP, pickupDate.getTimeInMillis());
-        loginIntent.putExtra(HOLD_DROPOFF, dropoffDate.getTimeInMillis());
-        loginIntent.putExtra(LoginActivity.PASS_INTENT, PlaceHold.class.getCanonicalName());
-        startActivity(loginIntent);
+        Intent chooseBook = new Intent(this, SelectBook.class);
+        chooseBook.putExtra(HOLD_PICKUP, pickupDate.getTimeInMillis());
+        chooseBook.putExtra(HOLD_DROPOFF, dropoffDate.getTimeInMillis());
+        startActivity(chooseBook);
+        finish();
     }
 
     @Override

@@ -24,7 +24,9 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/login" />
-        <activity android:name=".SelectBook"></activity>
+        <activity android:name=".SelectBook" />
+        <activity android:name=".ConfirmHold"></activity>
+        <activity android:name=".CancelHold" />
     </application>
 
 </manifest>

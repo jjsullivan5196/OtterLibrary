@@ -41,6 +41,11 @@ public class MenuActivity extends Activity {
             case R.id.bPlaceHold:
                 intent = new Intent(this, PlaceHold.class);
                 break;
+            case R.id.bCancelHold:
+                intent = new Intent(this, LoginActivity.class);
+                String act = CancelHold.class.getCanonicalName();
+                intent.putExtra(LoginActivity.PASS_INTENT, act);
+                break;
             default:
                 return;
         }

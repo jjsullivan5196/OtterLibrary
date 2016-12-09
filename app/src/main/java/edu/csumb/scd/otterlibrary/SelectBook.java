@@ -3,20 +3,28 @@ package edu.csumb.scd.otterlibrary;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.LoaderManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
-public class SelectBook extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class SelectBook extends ListActivity implements SimpleCursorAdapter.ViewBinder {
     private SimpleCursorAdapter mAdapter;
     private SQLiteDatabase mDb;
+    private Cursor mCursor;
     private LibraryDbHelper libraryHelper;
+    private Context context;
 
     private static final String[] PROJECTION = {
             LibraryContract.BookEntry._ID,
@@ -28,62 +36,81 @@ public class SelectBook extends ListActivity implements LoaderManager.LoaderCall
     private static final String SELECTION = LibraryContract.BookEntry.COLUMN_NAME_HOLD + " = 0";
     private static final String sortOrder = LibraryContract.BookEntry.COLUMN_NAME_TITLE + " DESC";
 
+    public static final String BOOK_SELECT_ID = "bookid";
+    public static final String BOOK_SELECT_TITLE = "booktitle";
+    public static final String BOOK_SELECT_AUTHOR = "bookauthor";
+    public static final String BOOK_SELECT_FEE = "bookfee";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Create a progress bar to display while the list loads
-        ProgressBar progressBar = new ProgressBar(this);
-        progressBar.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT,
-                AbsListView.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
-        progressBar.setIndeterminate(true);
-        getListView().setEmptyView(progressBar);
+        setContentView(R.layout.listview_default);
 
-        // Must add the progress bar to the root of the layout
-        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-        root.addView(progressBar);
+        context = getApplicationContext();
+        libraryHelper = new LibraryDbHelper(context);
+        mDb = libraryHelper.getReadableDatabase();
+        mCursor = mDb.query(
+                LibraryContract.BookEntry.TABLE_NAME,
+                PROJECTION,
+                SELECTION,
+                null,
+                null,
+                null,
+                sortOrder
+        );
 
-        // For the cursor adapter, specify which columns go into which views
-        String[] fromColumns = {LibraryContract.BookEntry.COLUMN_NAME_TITLE};
-        int[] toViews = {android.R.id.text1}; // The TextView in simple_list_item_1
+        mAdapter = new SimpleCursorAdapter(
+                this, // Context.
+                R.layout.listitem_book,  // Specify the row template to use (here, two columns bound to the two retrieved cursor rows).
+                mCursor,                                              // Pass in the cursor to bind to.
+                new String[] {
+                        LibraryContract.BookEntry.COLUMN_NAME_TITLE,
+                        LibraryContract.BookEntry.COLUMN_NAME_AUTHOR,
+                        LibraryContract.BookEntry.COLUMN_NAME_FEE
+                },
+                new int[] {R.id.bookTitle, R.id.bookAuthor, R.id.bookPrice},
+                0
+        );
+        mAdapter.setViewBinder(this);
 
-        // Create an empty adapter we will use to display the loaded data.
-        // We pass null for the cursor, then update it in onLoadFinished()
-        mAdapter = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_1, null,
-                fromColumns, toViews, 0);
         setListAdapter(mAdapter);
-
-        // Prepare the loader.  Either re-connect with an existing one,
-        // or start a new one.
-        getLoaderManager().initLoader(0, null, this);
-    }
-
-    // Called when a new Loader needs to be created
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // Now create and return a CursorLoader that will take care of
-        // creating a Cursor for the data being displayed.
-        return new CursorLoader(this, ContactsContract.Data.CONTENT_URI,
-                PROJECTION, SELECTION, null, null);
-    }
-
-    // Called when a previously created loader has finished loading
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Swap the new cursor in.  (The framework will take care of closing the
-        // old cursor once we return.)
-        mAdapter.swapCursor(data);
-    }
-
-    // Called when a previously created loader is reset, making the data unavailable
-    public void onLoaderReset(Loader<Cursor> loader) {
-        // This is called when the last Cursor provided to onLoadFinished()
-        // above is about to be closed.  We need to make sure we are no
-        // longer using it.
-        mAdapter.swapCursor(null);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
+        Cursor sel = (Cursor)getListView().getItemAtPosition(position);
+        Intent loginIntent = getIntent();
+
+        loginIntent.setClass(context, LoginActivity.class);
+        loginIntent.putExtra(BOOK_SELECT_ID, sel.getInt(sel.getColumnIndex(LibraryContract.BookEntry._ID)));
+        loginIntent.putExtra(BOOK_SELECT_TITLE, sel.getString(sel.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_TITLE)));
+        loginIntent.putExtra(BOOK_SELECT_AUTHOR, sel.getString(sel.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_AUTHOR)));
+        loginIntent.putExtra(BOOK_SELECT_FEE, sel.getDouble(sel.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_FEE)));
+        loginIntent.putExtra(LoginActivity.PASS_INTENT, ConfirmHold.class.getCanonicalName());
+        startActivity(loginIntent);
+        finish();
+    }
+
+    @Override
+    public boolean setViewValue(View view, Cursor cursor, int i) {
+        TextView mText = (TextView)view;
+        switch(mText.getId()) {
+            case R.id.bookTitle:
+                String title = cursor.getString(i);
+                String isbn = cursor.getString(cursor.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_ISBN));
+                mText.setText(String.format("%s (ISBN: %s)", title, isbn));
+                return true;
+            case R.id.bookAuthor:
+                String author = cursor.getString(i);
+                mText.setText(author);
+                return true;
+            case R.id.bookPrice:
+                double price = cursor.getDouble(i);
+                mText.setText(String.format("$%.2f", price));
+                return true;
+            default:
+                return false;
+        }
     }
 }

@@ -35,4 +35,20 @@
     <string name="error_res_too_long">Cannot hold book for more than 7 days</string>
     <string name="hold_success">Hold Requested</string>
     <string name="choose_time">Choose Time</string>
+
+    <!--Confirmation-->
+    <string name="confirm_dialog" formatted="false">
+        Reservation for: %s\n
+        Title: %s by %s\n
+        Price per hour: $%.2f\n\n
+        Pickup: %s \n
+        Dropoff: %s \n
+        <b>Total: $%.2f</b>
+    </string>
+    <string name="cancel">Cancel</string>
+    <string name="toast_hold_success">Hold Created</string>
+    <string name="toast_hold_cancel">Hold Cancelled</string>
+
+    <string name="cancel_hold">Cancel Hold</string>
+    <string name="no_books">No books to show</string>
 </resources>

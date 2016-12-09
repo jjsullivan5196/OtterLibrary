@@ -46,7 +46,7 @@
             android:onClick="setTime"/>
 
         <Button
-            android:text="@string/button_place_hold"
+            android:text="@string/reservation_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bSubmit"
