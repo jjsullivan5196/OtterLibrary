@@ -33,8 +33,10 @@
     <string name="reservation_submit">Submit</string>
     <string name="error_invalid_date">Dropoff is before pickup</string>
     <string name="error_res_too_long">Cannot hold book for more than 7 days</string>
+    <string name="error_res_invalid">Cannot hold book at this time</string>
     <string name="hold_success">Hold Requested</string>
     <string name="choose_time">Choose Time</string>
+    <string name="no_logs">No logs to show</string>
 
     <!--Confirmation-->
     <string name="confirm_dialog" formatted="false">
@@ -51,4 +53,18 @@
 
     <string name="cancel_hold">Cancel Hold</string>
     <string name="no_books">No books to show</string>
+
+    <!--Make new book-->
+    <string name="make_book">Create Book</string>
+    <string name="made_book">Books Updated</string>
+    <string name="hint_title">Book Title</string>
+    <string name="hint_author">Book Author</string>
+    <string name="hint_isbn">Book ISBN</string>
+    <string name="hint_fee">Book Fee</string>
+    <string name="error_noinfo">Book Info Missing</string>
+    <string name="error_title">Book already exists</string>
+
+    <!--Other-->
+    <string name="not_admin">Not the admin!</string>
+    <string name="make_new_book">Create new book</string>
 </resources>

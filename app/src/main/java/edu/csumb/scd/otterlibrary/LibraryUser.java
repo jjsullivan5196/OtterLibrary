@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
  * Created by jsullivan on 12/6/16.
  */
 
-public class LibraryUser {
+public final class LibraryUser {
     private String name;
     private String password;
 

@@ -18,9 +18,9 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(LibraryContract.SQL_CREATE_ENTRIES[0]);
-        db.execSQL(LibraryContract.SQL_CREATE_ENTRIES[1]);
-        db.execSQL(LibraryContract.SQL_CREATE_ENTRIES[2]);
+        for (String sqlStatement : LibraryContract.SQL_CREATE_ENTRIES) {
+            db.execSQL(sqlStatement);
+        }
 
         LibraryUser defaultUsers[] = new LibraryUser[4];
         LibraryBook defaultBooks[] = new LibraryBook[3];
@@ -47,12 +47,25 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(LibraryContract.SQL_DELETE_ENTRIES[0]);
-        db.execSQL(LibraryContract.SQL_DELETE_ENTRIES[1]);
-        db.execSQL(LibraryContract.SQL_DELETE_ENTRIES[2]);
+        for (String sqlStatement : LibraryContract.SQL_DELETE_ENTRIES) {
+            db.execSQL(sqlStatement);
+        }
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+    public static ContentValues updateLog(String type, Long time, String name, String title, Long pickup, Long dropoff, Double fee) {
+        ContentValues newLog = new ContentValues();
+
+        newLog.put(LibraryContract.LogEntry.COLUMN_NAME_TYPE, type);
+        newLog.put(LibraryContract.LogEntry.COLUMN_NAME_TIME, time);
+        newLog.put(LibraryContract.LogEntry.COLUMN_NAME_NAME, name);
+        newLog.put(LibraryContract.LogEntry.COLUMN_NAME_TITLE, title);
+        newLog.put(LibraryContract.LogEntry.COLUMN_NAME_PICKUP, pickup);
+        newLog.put(LibraryContract.LogEntry.COLUMN_NAME_DROPOFF, dropoff);
+        newLog.put(LibraryContract.LogEntry.COLUMN_NAME_FEE, fee);
+
+        return newLog;
     }
 }

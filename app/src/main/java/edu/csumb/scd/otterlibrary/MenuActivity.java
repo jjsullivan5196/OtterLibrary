@@ -46,6 +46,10 @@ public class MenuActivity extends Activity {
                 String act = CancelHold.class.getCanonicalName();
                 intent.putExtra(LoginActivity.PASS_INTENT, act);
                 break;
+            case R.id.bManageSystem:
+                intent = new Intent(this, LoginActivity.class);
+                intent.putExtra(LoginActivity.PASS_INTENT, ManageList.class.getCanonicalName());
+                break;
             default:
                 return;
         }

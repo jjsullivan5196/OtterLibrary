@@ -1,6 +1,8 @@
 package edu.csumb.scd.otterlibrary;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.Calendar;
 
@@ -12,21 +14,19 @@ public class LibraryBook {
     private String title;
     private String author;
     private String isbn;
-    private String heldBy;
-    private Calendar pickup;
-    private Calendar dropoff;
     private double fee;
-    private boolean hold;
+    private int id;
 
     public LibraryBook(String title, String author, String isbn, double fee) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.fee = fee;
-        this.hold = false;
+    }
 
-        this.heldBy = null;
-        this.pickup = this.dropoff = null;
+    private LibraryBook(String title, String author, String isbn, double fee, int id) {
+        this(title, author, isbn, fee);
+        this.id = id;
     }
 
     public ContentValues prepareBook() {
@@ -36,27 +36,76 @@ public class LibraryBook {
         prep.put(LibraryContract.BookEntry.COLUMN_NAME_AUTHOR, author);
         prep.put(LibraryContract.BookEntry.COLUMN_NAME_ISBN, isbn);
         prep.put(LibraryContract.BookEntry.COLUMN_NAME_FEE, fee);
-        prep.put(LibraryContract.BookEntry.COLUMN_NAME_HOLD, hold);
-
-        if(heldBy != null) {
-            prep.put(LibraryContract.BookEntry.COLUMN_NAME_HELD_BY, heldBy);
-            prep.put(LibraryContract.BookEntry.COLUMN_NAME_PICKUP, pickup.getTimeInMillis());
-            prep.put(LibraryContract.BookEntry.COLUMN_NAME_DROPOFF, dropoff.getTimeInMillis());
-        }
 
         return prep;
     }
 
-    public void setHold(String name, Calendar pickup, Calendar dropoff) {
-        this.heldBy = name;
-        this.pickup = pickup;
-        this.dropoff = dropoff;
+    public static LibraryBook getBookFromDb(String title, SQLiteDatabase db) {
+        String[] bookProjection = {
+                LibraryContract.BookEntry.COLUMN_NAME_TITLE,
+                LibraryContract.BookEntry.COLUMN_NAME_AUTHOR,
+                LibraryContract.BookEntry.COLUMN_NAME_ISBN,
+                LibraryContract.BookEntry.COLUMN_NAME_FEE
+        };
+
+        String select = LibraryContract.BookEntry.COLUMN_NAME_TITLE + " = ?";
+        String[] args = { title };
+
+        String sort = LibraryContract.UserEntry.COLUMN_NAME_USERNAME + " DESC";
+
+        Cursor c;
+        String dbTitle = "";
+        String dbAuthor = "";
+        String dbISBN = "";
+        double dbFee = 0;
+        int dbId = 0;
+        try {
+            c = db.query(
+                    LibraryContract.BookEntry.TABLE_NAME,
+                    bookProjection,
+                    select,
+                    args,
+                    null,
+                    null,
+                    sort
+            );
+
+            c.moveToFirst();
+            dbTitle = c.getString(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_TITLE));
+            dbAuthor = c.getString(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_AUTHOR));
+            dbISBN = c.getString(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_ISBN));
+            dbFee = c.getDouble(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_FEE));
+            dbId = c.getInt(c.getColumnIndex(LibraryContract.BookEntry._ID));
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Book not found");
+        }
+
+        return new LibraryBook(dbTitle, dbAuthor, dbISBN, dbFee);
     }
 
-    public void unHold() {
-        heldBy = null;
-        pickup = dropoff = null;
+    public static LibraryBook getBookFromCursor(Cursor c) {
+        String dbTitle = "";
+        String dbAuthor = "";
+        String dbISBN = "";
+        double dbFee = 0;
+        int dbId = 0;
+
+        dbTitle = c.getString(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_TITLE));
+        dbAuthor = c.getString(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_AUTHOR));
+        dbISBN = c.getString(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_ISBN));
+        dbFee = c.getDouble(c.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_FEE));
+        dbId = c.getInt(c.getColumnIndex(LibraryContract.BookEntry._ID));
+
+        return new LibraryBook(dbTitle, dbAuthor, dbISBN, dbFee, dbId);
     }
+
+    public String getTitle() { return title; }
+    public String getIsbn() { return isbn; }
+    public String getAuthor() { return author; }
+    public double getFee() { return fee; }
+    public int getId() { return id; }
 
     @Override
     public String toString() {

@@ -69,7 +69,7 @@ public class ConfirmHold extends Activity {
         switch(view.getId()) {
             case R.id.bConfirm:
                 SQLiteDatabase db = libraryHelper.getWritableDatabase();
-                ContentValues updateBooks = new ContentValues();
+                /*ContentValues updateBooks = new ContentValues();
 
                 updateBooks.put(LibraryContract.BookEntry.COLUMN_NAME_HOLD, true);
                 updateBooks.put(LibraryContract.BookEntry.COLUMN_NAME_HELD_BY, name);
@@ -78,7 +78,11 @@ public class ConfirmHold extends Activity {
 
                 String selection = LibraryContract.BookEntry._ID + " = " + Integer.toString(recordId);
 
-                db.update(LibraryContract.BookEntry.TABLE_NAME, updateBooks, selection, null);
+                db.update(LibraryContract.BookEntry.TABLE_NAME, updateBooks, selection, null);*/
+
+                LibraryHold newHold = new LibraryHold(name, title, pickup.getTimeInMillis(), dropoff.getTimeInMillis(), fee * hoursBorrow);
+                ContentValues holdStore = newHold.prepareHold();
+                long id = db.insert(LibraryContract.HoldEntry.TABLE_NAME, null, holdStore);
 
                 ContentValues log = new ContentValues();
 
@@ -92,7 +96,7 @@ public class ConfirmHold extends Activity {
 
                 db.insert(LibraryContract.LogEntry.TABLE_NAME, null, log);
 
-                report = Toast.makeText(getApplicationContext(), R.string.toast_hold_success, Toast.LENGTH_SHORT);
+                report = Toast.makeText(getApplicationContext(), getString(R.string.toast_hold_success) + String.format(": %d", id), Toast.LENGTH_SHORT);
                 report.show();
 
                 finish();

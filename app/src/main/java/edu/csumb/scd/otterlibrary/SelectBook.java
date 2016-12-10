@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SelectBook extends ListActivity implements SimpleCursorAdapter.ViewBinder {
     private SimpleCursorAdapter mAdapter;
@@ -25,6 +26,8 @@ public class SelectBook extends ListActivity implements SimpleCursorAdapter.View
     private Cursor mCursor;
     private LibraryDbHelper libraryHelper;
     private Context context;
+    private long pickup;
+    private long dropoff;
 
     private static final String[] PROJECTION = {
             LibraryContract.BookEntry._ID,
@@ -33,7 +36,7 @@ public class SelectBook extends ListActivity implements SimpleCursorAdapter.View
             LibraryContract.BookEntry.COLUMN_NAME_ISBN,
             LibraryContract.BookEntry.COLUMN_NAME_FEE
     };
-    private static final String SELECTION = LibraryContract.BookEntry.COLUMN_NAME_HOLD + " = 0";
+    private static final String SELECTION = "";
     private static final String sortOrder = LibraryContract.BookEntry.COLUMN_NAME_TITLE + " DESC";
 
     public static final String BOOK_SELECT_ID = "bookid";
@@ -47,18 +50,14 @@ public class SelectBook extends ListActivity implements SimpleCursorAdapter.View
 
         setContentView(R.layout.listview_default);
 
+        Intent mIntent = getIntent();
+        pickup = mIntent.getLongExtra(PlaceHold.HOLD_PICKUP, 0);
+        dropoff = mIntent.getLongExtra(PlaceHold.HOLD_DROPOFF, 0);
         context = getApplicationContext();
         libraryHelper = new LibraryDbHelper(context);
         mDb = libraryHelper.getReadableDatabase();
-        mCursor = mDb.query(
-                LibraryContract.BookEntry.TABLE_NAME,
-                PROJECTION,
-                SELECTION,
-                null,
-                null,
-                null,
-                sortOrder
-        );
+
+        mCursor = mDb.rawQuery("SELECT * FROM " + LibraryContract.BookEntry.TABLE_NAME, null);
 
         mAdapter = new SimpleCursorAdapter(
                 this, // Context.
@@ -80,34 +79,38 @@ public class SelectBook extends ListActivity implements SimpleCursorAdapter.View
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Cursor sel = (Cursor)getListView().getItemAtPosition(position);
+        LibraryBook sBook = LibraryBook.getBookFromCursor(sel);
         Intent loginIntent = getIntent();
+        Toast report;
 
-        loginIntent.setClass(context, LoginActivity.class);
-        loginIntent.putExtra(BOOK_SELECT_ID, sel.getInt(sel.getColumnIndex(LibraryContract.BookEntry._ID)));
-        loginIntent.putExtra(BOOK_SELECT_TITLE, sel.getString(sel.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_TITLE)));
-        loginIntent.putExtra(BOOK_SELECT_AUTHOR, sel.getString(sel.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_AUTHOR)));
-        loginIntent.putExtra(BOOK_SELECT_FEE, sel.getDouble(sel.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_FEE)));
-        loginIntent.putExtra(LoginActivity.PASS_INTENT, ConfirmHold.class.getCanonicalName());
-        startActivity(loginIntent);
-        finish();
+        if(LibraryHold.checkHolds(sBook.getTitle(), pickup, dropoff, libraryHelper.getReadableDatabase())) {
+            loginIntent.setClass(context, LoginActivity.class);
+            loginIntent.putExtra(BOOK_SELECT_TITLE, sBook.getTitle());
+            loginIntent.putExtra(BOOK_SELECT_AUTHOR, sBook.getAuthor());
+            loginIntent.putExtra(BOOK_SELECT_FEE, sBook.getFee());
+            loginIntent.putExtra(LoginActivity.PASS_INTENT, ConfirmHold.class.getCanonicalName());
+            startActivity(loginIntent);
+            finish();
+        }
+        else {
+            report = Toast.makeText(getApplicationContext(), R.string.error_res_invalid, Toast.LENGTH_SHORT);
+            report.show();
+        }
     }
 
     @Override
     public boolean setViewValue(View view, Cursor cursor, int i) {
         TextView mText = (TextView)view;
+        LibraryBook b = LibraryBook.getBookFromCursor(cursor);
         switch(mText.getId()) {
             case R.id.bookTitle:
-                String title = cursor.getString(i);
-                String isbn = cursor.getString(cursor.getColumnIndex(LibraryContract.BookEntry.COLUMN_NAME_ISBN));
-                mText.setText(String.format("%s (ISBN: %s)", title, isbn));
+                mText.setText(String.format("%s (ISBN: %s)", b.getTitle(), b.getIsbn()));
                 return true;
             case R.id.bookAuthor:
-                String author = cursor.getString(i);
-                mText.setText(author);
+                mText.setText(b.getAuthor());
                 return true;
             case R.id.bookPrice:
-                double price = cursor.getDouble(i);
-                mText.setText(String.format("$%.2f", price));
+                mText.setText(String.format("$%.2f", b.getFee()));
                 return true;
             default:
                 return false;

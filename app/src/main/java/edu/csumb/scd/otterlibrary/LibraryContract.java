@@ -27,10 +27,6 @@ public final class LibraryContract {
         public static final String COLUMN_NAME_AUTHOR = "author";
         public static final String COLUMN_NAME_ISBN = "isbn";
         public static final String COLUMN_NAME_FEE = "fee";
-        public static final String COLUMN_NAME_HOLD = "hold";
-        public static final String COLUMN_NAME_HELD_BY = "held_by";
-        public static final String COLUMN_NAME_PICKUP = "pickup";
-        public static final String COLUMN_NAME_DROPOFF = "dropoff";
     }
 
     public static class LogEntry implements BaseColumns {
@@ -48,6 +44,15 @@ public final class LibraryContract {
         public static final String COLUMN_TYPE_CANCEL = "cancel";
     }
 
+    public static class HoldEntry implements BaseColumns {
+        public static final String TABLE_NAME = "holds";
+        public static final String COLUMN_NAME_HELD_BY = "held_by";
+        public static final String COLUMN_NAME_TITLE = "title";
+        public static final String COLUMN_NAME_PICKUP = "pickup";
+        public static final String COLUMN_NAME_DROPOFF = "dropoff";
+        public static final String COLUMN_NAME_FEE = "fee";
+    }
+
     public static final String TEXT_TYPE = " TEXT";
     public static final String COMMA_SEP = ",";
     public static final String[] SQL_CREATE_ENTRIES = {
@@ -60,11 +65,7 @@ public final class LibraryContract {
                     BookEntry.COLUMN_NAME_TITLE + TEXT_TYPE + " NOT NULL UNIQUE" + COMMA_SEP +
                     BookEntry.COLUMN_NAME_AUTHOR + TEXT_TYPE + " NOT NULL" + COMMA_SEP +
                     BookEntry.COLUMN_NAME_ISBN + TEXT_TYPE + " NOT NULL UNIQUE" + COMMA_SEP +
-                    BookEntry.COLUMN_NAME_FEE + " REAL NOT NULL" + COMMA_SEP +
-                    BookEntry.COLUMN_NAME_HOLD + " INTEGER NOT NULL" + COMMA_SEP +
-                    BookEntry.COLUMN_NAME_HELD_BY + TEXT_TYPE + COMMA_SEP +
-                    BookEntry.COLUMN_NAME_PICKUP + " INTEGER" + COMMA_SEP +
-                    BookEntry.COLUMN_NAME_DROPOFF + " INTEGER" + " )",
+                    BookEntry.COLUMN_NAME_FEE + " REAL NOT NULL" + " )",
             "CREATE TABLE " + LogEntry.TABLE_NAME + " (" +
                     LogEntry._ID + " INTEGER PRIMARY KEY," +
                     LogEntry.COLUMN_NAME_TYPE + TEXT_TYPE + " NOT NULL" + COMMA_SEP +
@@ -73,12 +74,20 @@ public final class LibraryContract {
                     LogEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     LogEntry.COLUMN_NAME_PICKUP + " INTEGER" + COMMA_SEP +
                     LogEntry.COLUMN_NAME_DROPOFF + " INTEGER" + COMMA_SEP +
-                    LogEntry.COLUMN_NAME_FEE + " REAL" + " )"
+                    LogEntry.COLUMN_NAME_FEE + " REAL" + " )",
+            "CREATE TABLE " + HoldEntry.TABLE_NAME + " (" +
+                    HoldEntry._ID + " INTEGER PRIMARY KEY," +
+                    HoldEntry.COLUMN_NAME_HELD_BY + TEXT_TYPE + " NOT NULL" + COMMA_SEP +
+                    HoldEntry.COLUMN_NAME_TITLE + TEXT_TYPE + " NOT NULL" + COMMA_SEP +
+                    HoldEntry.COLUMN_NAME_PICKUP + " INTEGER NOT NULL" + COMMA_SEP +
+                    HoldEntry.COLUMN_NAME_DROPOFF + " INTEGER NOT NULL" + COMMA_SEP +
+                    HoldEntry.COLUMN_NAME_FEE + " REAL NOT NULL" + " )"
     };
 
     public static final String[] SQL_DELETE_ENTRIES = {
             "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME,
             "DROP TABLE IF EXISTS " + BookEntry.TABLE_NAME,
-            "DROP TABLE IF EXISTS " + LogEntry.TABLE_NAME
+            "DROP TABLE IF EXISTS " + LogEntry.TABLE_NAME,
+            "DROP TABLE IF EXISTS " + HoldEntry.TABLE_NAME
     };
 }

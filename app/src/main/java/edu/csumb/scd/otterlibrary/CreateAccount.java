@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.nio.ByteBuffer;
+import java.util.Calendar;
 
 public class CreateAccount extends Activity {
     private TextView etextUsername;
@@ -46,6 +47,8 @@ public class CreateAccount extends Activity {
             SQLiteDatabase db = libraryHelper.getWritableDatabase();
             ContentValues prep = newUser.prepareUser();
             db.insertOrThrow(LibraryContract.UserEntry.TABLE_NAME, null, prep);
+            ContentValues newLog = LibraryDbHelper.updateLog(LibraryContract.LogEntry.COLUMN_TYPE_ACCOUNT, Calendar.getInstance().getTimeInMillis(), newUser.toString(), null, null, null, null);
+            db.insert(LibraryContract.LogEntry.TABLE_NAME, null, newLog);
         } catch(SQLException e) {
             report = Toast.makeText(context, getString(R.string.toast_db_failure) + " " + newUser.toString(), Toast.LENGTH_SHORT);
             report.show();
